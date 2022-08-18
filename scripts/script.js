@@ -43,8 +43,15 @@ btnSave.addEventListener("click", async () => {
     const response = await axios({
         metodh: "post",
         url: "http://localhost/posts", 
-        data: data
+        data: data,
+        validateStatus: function (status) {
+            return status >= 200 && status < 500
+        },
     })
+    if (response === 404){
+        console.log("Págona no encontrada", response)
+        return
+    }
     console.log(response)
     } catch (error){
         console.log(error)
